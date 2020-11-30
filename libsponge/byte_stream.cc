@@ -7,47 +7,89 @@
 
 // You will need to add private members to the class declaration in `byte_stream.hh`
 
-template <typename... Targs>
-void DUMMY_CODE(Targs &&... /* unused */) {}
+
 
 using namespace std;
 
-ByteStream::ByteStream(const size_t capacity) { DUMMY_CODE(capacity); }
+ByteStream::ByteStream(const size_t capacity):
+size(capacity),buffer(0),bufferread(0),bufferwrite(0),flag(false) {}
+    
+
 
 size_t ByteStream::write(const string &data) {
-    DUMMY_CODE(data);
-    return {};
+    int index = 0;
+    for (; index < static_cast<int >(data.length()) && bufferwrite != bufferread+size; index++) {
+        buffer.push_back(data[index]);
+        bufferwrite++;
+    }
+    return index;
 }
 
 //! \param[in] len bytes will be copied from the output side of the buffer
 string ByteStream::peek_output(const size_t len) const {
-    DUMMY_CODE(len);
-    return {};
+    string ret;
+    size_t i = 0;
+    int p = bufferread;
+    for (; i < len && p != bufferwrite; i++) {
+        ret += buffer[p];
+        p++;
+    }
+    return ret;
 }
 
 //! \param[in] len bytes will be removed from the output side of the buffer
-void ByteStream::pop_output(const size_t len) { DUMMY_CODE(len); }
+void ByteStream::pop_output(const size_t len) {
+    size_t i = 0;
+    for (; i < len && bufferread != bufferwrite; i++) {
+        bufferread++;
+
+    }
+}
 
 //! Read (i.e., copy and then pop) the next "len" bytes of the stream
 //! \param[in] len bytes will be popped and returned
 //! \returns a string
 std::string ByteStream::read(const size_t len) {
-    DUMMY_CODE(len);
-    return {};
+    string ret;
+    size_t i = 0;
+    for (; i < len && bufferread != bufferwrite; i++) {
+        ret+=buffer[bufferread];
+        bufferread++;
+      
+    }
+    return ret;
 }
 
-void ByteStream::end_input() {}
+void ByteStream::end_input() {
+    flag = true;
+}
 
-bool ByteStream::input_ended() const { return {}; }
+bool ByteStream::input_ended() const { 
+    return flag;
+ }
 
-size_t ByteStream::buffer_size() const { return {}; }
+size_t ByteStream::buffer_size() const { 
+    return static_cast<size_t >(bufferwrite-bufferread);
+ }
 
-bool ByteStream::buffer_empty() const { return {}; }
+bool ByteStream::buffer_empty() const { 
+    if(bufferwrite==bufferread) return true;
+    else return false;
+}
 
-bool ByteStream::eof() const { return false; }
+bool ByteStream::eof() const { 
+    if(bufferread==bufferwrite&&flag) return true;
+    else return false;
+}
 
-size_t ByteStream::bytes_written() const { return {}; }
+size_t ByteStream::bytes_written() const { 
+    return static_cast<size_t >(bufferwrite);
+ }
 
-size_t ByteStream::bytes_read() const { return {}; }
+size_t ByteStream::bytes_read() const {
+    return static_cast<size_t >(bufferread);
+ }
 
-size_t ByteStream::remaining_capacity() const { return {}; }
+size_t ByteStream::remaining_capacity() const { 
+    return static_cast<size_t >(size - (bufferwrite-bufferread));
+ }

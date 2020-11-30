@@ -2,7 +2,8 @@
 #define SPONGE_LIBSPONGE_BYTE_STREAM_HH
 
 #include <string>
-
+#include <vector>
+using namespace std;
 //! \brief An in-order byte stream.
 
 //! Bytes are written on the "input" side and read from the "output"
@@ -17,6 +18,12 @@ class ByteStream {
     // that's a sign that you probably want to keep exploring
     // different approaches.
 
+    // a  warpped-rounded  vector ?
+    int size;
+    vector<char> buffer;
+    int bufferread ;
+    int bufferwrite ;
+    bool flag ;
     bool _error{};  //!< Flag indicating that the stream suffered an error.
 
   public:
