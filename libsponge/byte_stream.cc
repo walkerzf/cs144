@@ -12,14 +12,14 @@
 using namespace std;
 
 ByteStream::ByteStream(const size_t capacity):
-size(capacity),buffer(0),bufferread(0),bufferwrite(0),flag(false) {}
+size(capacity),buffer(capacity),bufferread(0),bufferwrite(0),flag(false) {}
     
 
 
 size_t ByteStream::write(const string &data) {
     int index = 0;
     for (; index < static_cast<int >(data.length()) && bufferwrite != bufferread+size; index++) {
-        buffer.push_back(data[index]);
+        buffer[bufferwrite%size] = data[index];
         bufferwrite++;
     }
     return index;
@@ -31,7 +31,7 @@ string ByteStream::peek_output(const size_t len) const {
     size_t i = 0;
     int p = bufferread;
     for (; i < len && p != bufferwrite; i++) {
-        ret += buffer[p];
+        ret += buffer[p%size];
         p++;
     }
     return ret;
@@ -53,7 +53,7 @@ std::string ByteStream::read(const size_t len) {
     string ret;
     size_t i = 0;
     for (; i < len && bufferread != bufferwrite; i++) {
-        ret+=buffer[bufferread];
+        ret+=buffer[bufferread%size];
         bufferread++;
       
     }
