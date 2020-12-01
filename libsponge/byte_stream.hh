@@ -21,9 +21,9 @@ class ByteStream {
     // a  warpped-rounded  vector ?
     int size;
     vector<char> buffer;
-    int bufferread ;
-    int bufferwrite ;
-    bool flag ;
+    int bufferread;
+    int bufferwrite;
+    bool flag;
     bool _error{};  //!< Flag indicating that the stream suffered an error.
 
   public:

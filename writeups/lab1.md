@@ -1,21 +1,22 @@
 Lab 1 Writeup
 =============
 
-My name: [your name here]
+My name: [Zhou Fang]
 
-My SUNet ID: [your sunetid here]
 
-This lab took me about [n] hours to do. I [did/did not] attend the lab session.
+This lab took me about [3.5] hours to do. I [did not] attend the lab session.
 
 Program Structure and Design of the StreamReassembler:
-[]
+two wrapped roundded  vector 
+one saves the char
+one indicates the bit have character or not ,this is necessary , because the hole can exist!
 
 Implementation Challenges:
-[]
+Understanding the illusion of the "capacity" is very important. 
 
 Remaining Bugs:
-[]
-
+[None]
+//
 - Optional: I had unexpected difficulty with: [describe]
 
 - Optional: I think you could make this lab better by: [describe]
