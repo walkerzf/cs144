@@ -22,7 +22,6 @@ class StreamReassembler {
     vector<bool> flag;
     int length;
     int count;
-    
 
   public:
     //! \brief Construct a `StreamReassembler` that will store up to `capacity` bytes.

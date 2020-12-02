@@ -1,5 +1,6 @@
 #include "stream_reassembler.hh"
-#include<iostream>
+
+#include <iostream>
 // Dummy implementation of a stream reassembler.
 
 // For Lab 1, please replace with a real implementation that passes the
@@ -32,16 +33,16 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
     int c = static_cast<int>(_capacity);
     if (eof)
         length = start + datalen;
-    int i=0; 
+    int i = 0;
     for (i = start; i < start + datalen && i < firstunread + c; i++) {
         if (i < firstunassembled || flag[i % c])
             continue;
-            
+
         flag[i % c] = true;
         m[i % c] = data[i - start];
         count++;
     }
-    
+
     string s;
 
     for (i = firstunassembled; i < firstunassembled + c; i++) {
@@ -52,7 +53,8 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
         count--;
     }
     firstunassembled = i;
-    if(firstunassembled==length) _output.end_input();
+    if (firstunassembled == length)
+        _output.end_input();
 
     if (!s.empty())
         _output.write(s);
@@ -60,6 +62,7 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
 
 size_t StreamReassembler::unassembled_bytes() const { return static_cast<size_t>(count); }
 
-bool StreamReassembler::empty() const { 
-    //cout << count << endl;
-    return count==0; }
+bool StreamReassembler::empty() const {
+    // cout << count << endl;
+    return count == 0;
+}
