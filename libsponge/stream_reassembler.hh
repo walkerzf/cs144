@@ -22,6 +22,7 @@ class StreamReassembler {
     vector<bool> flag;
     size_t length;
     size_t count;
+    size_t lastassembleed;
 
   public:
     //! \brief Construct a `StreamReassembler` that will store up to `capacity` bytes.
@@ -54,6 +55,9 @@ class StreamReassembler {
     //! \brief Is the internal state empty (other than the output stream)?
     //! \returns `true` if no substrings are waiting to be assembled
     bool empty() const;
+
+    uint64_t lastassemble()  const { return static_cast<uint64_t>(lastassembleed); }
+    uint64_t firstunassem() const { return static_cast<uint64_t>(firstunassembled); }
 };
 
 #endif  // SPONGE_LIBSPONGE_STREAM_REASSEMBLER_HH

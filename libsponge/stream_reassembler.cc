@@ -21,7 +21,8 @@ StreamReassembler::StreamReassembler(const size_t capacity)
     , m(capacity)
     , flag(capacity, false)
     , length(-1)
-    , count(0) {}
+    , count(0)
+    , lastassembleed(0) {}
 
 //! \details This function accepts a substring (aka a segment) of bytes,
 //! possibly out-of-order, from the logical stream, and assembles any newly
@@ -34,13 +35,15 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
     if (eof)
         length = start + datalen;
     size_t i = 0;
-    for (i = start; i < start + datalen && i <  firstunread + c; i++) {
+    // may overflow or not ?
+    for (i = start; i < start + datalen && i < firstunread + c; i++) {
         if (i < firstunassembled || flag[i % c])
             continue;
 
         flag[i % c] = true;
         m[i % c] = data[i - start];
         count++;
+        lastassembleed = max( lastassembleed , i);
     }
 
     string s;
