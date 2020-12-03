@@ -28,13 +28,13 @@ StreamReassembler::StreamReassembler(const size_t capacity)
 //! contiguous substrings and writes them into the output stream in order.
 void StreamReassembler::push_substring(const string &data, const size_t index, const bool eof) {
     firstunread = _output.bytes_read();
-    int start = static_cast<int>(index);
-    int datalen = static_cast<int>(data.length());
-    int c = static_cast<int>(_capacity);
+    size_t start = index;
+    size_t datalen = data.length();
+    size_t c = _capacity;
     if (eof)
         length = start + datalen;
-    int i = 0;
-    for (i = start; i < start + datalen && i < firstunread + c; i++) {
+    size_t i = 0;
+    for (i = start; i < start + datalen && i <  firstunread + c; i++) {
         if (i < firstunassembled || flag[i % c])
             continue;
 
@@ -45,7 +45,7 @@ void StreamReassembler::push_substring(const string &data, const size_t index, c
 
     string s;
 
-    for (i = firstunassembled; i < firstunassembled + c; i++) {
+    for (i = firstunassembled; i < firstunread + c; i++) {
         if (!flag[i % c])
             break;
         s += m[i % c];

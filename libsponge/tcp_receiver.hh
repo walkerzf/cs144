@@ -19,13 +19,18 @@ class TCPReceiver {
 
     //! The maximum number of bytes we'll store.
     size_t _capacity;
+    bool setisn;
+    WrappingInt32 _isn;
+    bool setfin;
+    WrappingInt32 _fin;
 
   public:
     //! \brief Construct a TCP receiver
     //!
     //! \param capacity the maximum number of bytes that the receiver will
     //!                 store in its buffers at any give time.
-    TCPReceiver(const size_t capacity) : _reassembler(capacity), _capacity(capacity) {}
+    TCPReceiver(const size_t capacity)
+        : _reassembler(capacity), _capacity(capacity), setisn(false), _isn(0), setfin(false), _fin(0) {}
 
     //! \name Accessors to provide feedback to the remote TCPSender
     //!@{

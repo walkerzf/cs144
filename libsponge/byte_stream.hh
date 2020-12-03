@@ -19,10 +19,10 @@ class ByteStream {
     // different approaches.
 
     // a  warpped-rounded  vector ?
-    int size;
+    size_t size;
     vector<char> buffer;
-    int bufferread;
-    int bufferwrite;
+    size_t bufferread;
+    size_t bufferwrite;
     bool flag;
     bool _error{};  //!< Flag indicating that the stream suffered an error.
 

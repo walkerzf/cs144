@@ -16,12 +16,12 @@ class StreamReassembler {
 
     ByteStream _output;  //!< The reassembled in-order byte stream
     size_t _capacity;    //!< The maximum number of bytes
-    int firstunassembled;
-    int firstunread;
+    size_t firstunassembled;
+    size_t firstunread;
     vector<char> m;
     vector<bool> flag;
-    int length;
-    int count;
+    size_t length;
+    size_t count;
 
   public:
     //! \brief Construct a `StreamReassembler` that will store up to `capacity` bytes.

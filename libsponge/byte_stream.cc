@@ -13,8 +13,8 @@ ByteStream::ByteStream(const size_t capacity)
     : size(capacity), buffer(capacity), bufferread(0), bufferwrite(0), flag(false) {}
 
 size_t ByteStream::write(const string &data) {
-    int index = 0;
-    for (; index < static_cast<int>(data.length()) && bufferwrite != bufferread + size; index++) {
+    size_t index = 0;
+    for (; index < data.length() && bufferwrite != bufferread + size; index++) {
         buffer[bufferwrite % size] = data[index];
         bufferwrite++;
     }
@@ -25,7 +25,7 @@ size_t ByteStream::write(const string &data) {
 string ByteStream::peek_output(const size_t len) const {
     string ret;
     size_t i = 0;
-    int p = bufferread;
+    size_t p = bufferread;
     for (; i < len && p != bufferwrite; i++) {
         ret += buffer[p % size];
         p++;
