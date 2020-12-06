@@ -57,8 +57,9 @@ optional<WrappingInt32> TCPReceiver::ackno() const {
         return {};
     } else {
         uint64_t n = _reassembler.firstunassem();
-        // we need to change the stream index = > absolute seqo number
+        // we need to change the stream index = > absolute seqo number plus one
         WrappingInt32 res = wrap(n + 1, _isn);
+        //fin takes one postion so next want to revceive is next 
         if (res.raw_value() == _fin.raw_value())
             return res + 1u;
         else
