@@ -26,12 +26,29 @@ class TCPSender {
     //! retransmission timer for the connection
     unsigned int _initial_retransmission_timeout;
 
+    //rto and timer
+    unsigned int rto;
+    unsigned int cur_timer;
+
     //! outgoing stream of bytes that have not yet been sent
     ByteStream _stream;
 
     //! the (absolute) sequence number for the next byte to be sent
     uint64_t _next_seqno{0};
 
+    //internal keep the sent segments
+    queue<TCPSegment> outstanding_segments{};
+
+    //ack seqo (absolute seqo) 
+    uint64_t ack_seqo{0};
+
+    //fail times
+    unsigned int fails{0};
+
+    //right limit first unacceptable seqo number , initialize the window size == 1
+    uint64_t unacceptable_seqo{1};
+
+    bool fin_sent{0};
   public:
     //! Initialize a TCPSender
     TCPSender(const size_t capacity = TCPConfig::DEFAULT_CAPACITY,

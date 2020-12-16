@@ -1,7 +1,7 @@
 Lab 1 Writeup
 =============
 
-My name: [Zhou Fang]
+My name: [walkerzf]
 
 
 This lab took me about [3.5] hours to do. I [did not] attend the lab session.

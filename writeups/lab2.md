@@ -1,7 +1,7 @@
 Lab 2 Writeup
 =============
 
-My name: [ZhouFang]
+My name: [walkerzf]
 
 My SUNet ID: [0]
 
